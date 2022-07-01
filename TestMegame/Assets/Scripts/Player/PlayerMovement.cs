@@ -1,15 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float force = 0.05f;
-    [SerializeField] private float speedLimit = 0.05f;
-    [SerializeField] private float rotateVelocity = 1f;
-    [SerializeField] private float inertionMultiplier = 1f;
+    [SerializeField] private PlayerStats playerStats;
+    private float force;
+    private float speedLimit;
+    private float rotateVelocity;
+    private float inertionMultiplier;
     private Vector3 _inertion;
     float speed;
+
+    private void Start()
+    {
+        force = playerStats.GiveForce();
+        speedLimit = playerStats.GiveSpeedLimit();
+        rotateVelocity = playerStats.GiveRotateVelocity();
+        inertionMultiplier = playerStats.GiveInertionMultiplier();
+    }
 
     private void FixedUpdate()
     {

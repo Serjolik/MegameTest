@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WallsTeleport : MonoBehaviour
@@ -8,6 +6,14 @@ public class WallsTeleport : MonoBehaviour
     [Space]
     [SerializeField] private string position;
     private Vector3 newPos;
+    private string playerResolution = "16:10";
+    private float teleportDistance;
+
+    private void Start()
+    {
+        if (playerResolution == "16:10")
+            teleportDistance = 11.5f;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,16 +21,16 @@ public class WallsTeleport : MonoBehaviour
         switch (position)
         {
             case ("up"):
-                newPos.y -= 11.5f;
+                newPos.y -= teleportDistance;
                 break;
             case ("down"):
-                newPos.y += 11.5f;
+                newPos.y += teleportDistance;
                 break;
             case ("left"):
-                newPos.x += 22;
+                newPos.x += 1.9f * teleportDistance;
                 break;
             case ("right"):
-                newPos.x -= 22;
+                newPos.x -= 1.9f * teleportDistance;
                 break;
             default:
                 Debug.Log("Unknown position");
