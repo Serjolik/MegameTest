@@ -152,7 +152,7 @@ Transform:
   m_Children:
   - {fileID: 519814305}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -335,9 +335,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d53734be7c27c84b89ed54c30757050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 1043660129}
   damageDealt: 1
   speed: 0.4
+  points: 100
 --- !u!50 &519814308
 Rigidbody2D:
   serializedVersion: 4
@@ -1017,7 +1017,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletReload: 3
   Bullet: {fileID: 3574611004947900692, guid: 911e9f711fa67ea45ab8968193bfda26, type: 3}
-  playerTransform: {fileID: 1889359984}
 --- !u!4 &1390482119
 Transform:
   m_ObjectHideFlags: 0
@@ -1025,12 +1024,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390482117}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1889359984}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1675424457
 GameObject:
@@ -1162,7 +1161,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1390482119}
   m_Father: {fileID: 1043660128}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1178,7 +1178,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb06fdef4c5d264eac871798f64622a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStats: {fileID: 1043660129}
 --- !u!212 &1889359986
 SpriteRenderer:
   m_ObjectHideFlags: 0

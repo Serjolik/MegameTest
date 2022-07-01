@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private PlayerStats playerStats;
+    private PlayerStats playerStats;
     private float force;
     private float speedLimit;
     private float rotateVelocity;
@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         force = playerStats.GiveForce();
         speedLimit = playerStats.GiveSpeedLimit();
         rotateVelocity = playerStats.GiveRotateVelocity();

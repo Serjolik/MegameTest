@@ -7,7 +7,6 @@ public class Shot : MonoBehaviour
     [SerializeField] private float bulletReload = 1f;
     [Space]
     [SerializeField] private GameObject Bullet;
-    [SerializeField] private Transform playerTransform;
 
     private bool canShot = true;
     private Vector3 direction;
@@ -16,7 +15,7 @@ public class Shot : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) && canShot)
         {
-            Instantiate(Bullet, playerTransform.position, playerTransform.rotation);
+            Instantiate(Bullet, gameObject.transform.position, gameObject.transform.rotation);
             StartCoroutine(shotReload());
         }
     }

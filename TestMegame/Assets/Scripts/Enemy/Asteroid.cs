@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-    [SerializeField] private PlayerStats playerStats;
-    [SerializeField] private int damageDealt;
-    [SerializeField] private float speed;
+    [SerializeField] private int damageDealt = 1;
+    [SerializeField] private float speed = 1;
+    [SerializeField] private int points = 100;
 
+    private PlayerStats playerStats;
     private Transform asteroidTransform;
     private Vector3 vectorMovement;
 
     private void Start()
     {
+        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         asteroidTransform = gameObject.transform;
         vectorMovement = new Vector3(1, 1, 0);
     }
@@ -27,6 +27,11 @@ public class Asteroid : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             playerStats.DamageGiven(damageDealt);
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Bullet")
+        {
+            playerStats.PointsEarn(points);
             Destroy(gameObject);
         }
     }

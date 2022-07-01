@@ -9,9 +9,11 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float inertionMultiplier = 1f;
 
     private bool isAlive;
+    private int points;
 
-    private void Start()
+    private void Awake()
     {
+        points = 0;
         isAlive = true;
     }
 
@@ -49,10 +51,16 @@ public class PlayerStats : MonoBehaviour
         return inertionMultiplier;
     }
 
+    public void PointsEarn(int points)
+    {
+        this.points += points;
+    }
+
     private void EndGame()
     {
         Debug.Log("GameIsOver");
         isAlive = false;
+        points = 0;
     }
 
 }
