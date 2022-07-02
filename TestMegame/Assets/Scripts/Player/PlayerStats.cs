@@ -2,20 +2,15 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private int hp;
-    [SerializeField] private float force  = 0.05f;
+    [Header("Variables")]
+    [SerializeField] private int hp = 5;
+    [SerializeField] private float force = 0.05f;
     [SerializeField] private float speedLimit = 0.05f;
     [SerializeField] private float rotateVelocity = 1f;
     [SerializeField] private float inertionMultiplier = 1f;
-
-    private bool isAlive;
-    private int points;
-
-    private void Awake()
-    {
-        points = 0;
-        isAlive = true;
-    }
+    [Space]
+    [Header("Controller")]
+    [SerializeField] GameController GameController;
 
     public void DamageGiven(int damage)
     {
@@ -27,7 +22,7 @@ public class PlayerStats : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            EndGame();
+            GameController.GameEnded();
         }
     }
 
@@ -50,17 +45,4 @@ public class PlayerStats : MonoBehaviour
     {
         return inertionMultiplier;
     }
-
-    public void PointsEarn(int points)
-    {
-        this.points += points;
-    }
-
-    private void EndGame()
-    {
-        Debug.Log("GameIsOver");
-        isAlive = false;
-        points = 0;
-    }
-
 }

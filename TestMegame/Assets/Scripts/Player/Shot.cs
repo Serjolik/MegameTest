@@ -6,6 +6,7 @@ public class Shot : MonoBehaviour
     [Header("Количество выстрелов в секунду")]
     [SerializeField] private float bulletReload = 1f;
     [Space]
+    [Header("Пуля")]
     [SerializeField] private GameObject Bullet;
 
     private bool canShot = true;
