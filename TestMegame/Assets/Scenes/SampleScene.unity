@@ -1109,7 +1109,10 @@ MonoBehaviour:
   AsteroidManager: {fileID: 351587868}
   asteroidSpawnReloading: 2
   startAsteroidAmount: 1
-  pointsForAsteroid: 100
+  pointsForBigAsteroid: 20
+  pointsForMediumAsteroid: 50
+  pointsForSmallAsteroid: 100
+  pointsForNLO: 200
   AsteroidDamage: 1
   AsteroidSpeed: 1
 --- !u!4 &1675592378

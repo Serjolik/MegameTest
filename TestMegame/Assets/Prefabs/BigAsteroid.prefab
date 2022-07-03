@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3046979517004254357}
   - component: {fileID: 3046979517004254358}
   - component: {fileID: 3046979517004254359}
-  - component: {fileID: 3046979517004254353}
   - component: {fileID: 3046979517004254352}
+  - component: {fileID: 6962483315105685663}
   m_Layer: 0
   m_Name: BigAsteroid
   m_TagString: Untagged
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0188c33285168e9469b92c90cfd3a915, type: 3}
+  m_Sprite: {fileID: 4381731917727284322, guid: fa2e7344f8dcd8342a17cb1b0ffcdd47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,34 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageDealt: 1
-  speed: 0.4
-  gameController: {fileID: 0}
---- !u!61 &3046979517004254353
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3046979517004254356}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.85, y: 3.2}
-    newSize: {x: 1.85, y: 3.2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.85, y: 3.2}
-  m_EdgeRadius: 0
+  speed: 1
+  asteroidType: Big
 --- !u!50 &3046979517004254352
 Rigidbody2D:
   serializedVersion: 4
@@ -148,3 +122,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!60 &6962483315105685663
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3046979517004254356}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.3333333, y: 2.375}
+    newSize: {x: 1.85, y: 3.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.8212138, y: 0.4960242}
+      - {x: 0.72131145, y: 1.2518127}
+      - {x: -0.18447876, y: 1.1017497}
+      - {x: -0.5190207, y: 0.59812415}
+      - {x: -1.1666667, y: -0.007855266}
+      - {x: -1.102354, y: -1.1231873}
+      - {x: 0.8333334, y: -1.1017497}
+      - {x: 0.8762338, y: -0.68933904}
+      - {x: 1.1881043, y: -0.6005411}
+      - {x: 1.1452292, y: -0.06975098}

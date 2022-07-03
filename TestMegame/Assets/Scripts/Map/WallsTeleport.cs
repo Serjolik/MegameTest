@@ -35,7 +35,7 @@ public class WallsTeleport : MonoBehaviour
             default:
                 Debug.Log("Unknown position");
                 break;
-            }
+        }
             collision.gameObject.transform.position = newPos;
     }
 }

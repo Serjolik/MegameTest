@@ -10,8 +10,12 @@ public class GameController : MonoBehaviour
     [Space]
     [Header("Variables")]
     [SerializeField] private int asteroidSpawnReloading = 2;
-    [SerializeField] private int startAsteroidAmount = 2;
-    [SerializeField] private int pointsForAsteroid = 100;
+    [SerializeField] private int startAsteroidAmount = 1;
+
+    [SerializeField] private int pointsForBigAsteroid = 20;
+    [SerializeField] private int pointsForMediumAsteroid = 50;
+    [SerializeField] private int pointsForSmallAsteroid = 100;
+    [SerializeField] private int pointsForNLO = 200;
 
     [SerializeField] private int AsteroidDamage;
     [SerializeField] private float AsteroidSpeed;
@@ -22,7 +26,7 @@ public class GameController : MonoBehaviour
     private float screenSizeHeight;
     private float screenSizeWidth;
 
-    private int currentAmountOfAsteroids;
+    private int currentAmountOfSmallAsteroids;
 
     private string PointsResult;
     private int points;
@@ -36,11 +40,11 @@ public class GameController : MonoBehaviour
 
         SetAsteroidParam();
 
-        currentAmountOfAsteroids = startAsteroidAmount;
+        currentAmountOfSmallAsteroids = startAsteroidAmount * 2 * 2;
 
         isAlive = true;
         points = 0;
-        AsteroidManager.Spawn();
+        AsteroidManager.StageSpawn();
     }
 
     private void Update()
@@ -51,12 +55,12 @@ public class GameController : MonoBehaviour
             return;
         }
         
-        if (currentAmountOfAsteroids <= 0)
+        if (currentAmountOfSmallAsteroids <= 0)
         {
             startAsteroidAmount++;
             AsteroidManager.SetAsteroidsAmount(startAsteroidAmount);
-            AsteroidManager.Spawn();
-            currentAmountOfAsteroids = AsteroidManager.GiveAsteroidsAmount();
+            AsteroidManager.StageSpawn();
+            currentAmountOfSmallAsteroids = startAsteroidAmount * 2 * 2;
         }
     }
 
@@ -72,11 +76,28 @@ public class GameController : MonoBehaviour
         Debug.Log("Game is end with " + points + " points");
     }
 
-    public void AsteroidDemolish()
+    public void AsteroidDemolish(string asteroidType)
     {
         Debug.Log("Asteroid is demolish");
-        PointsChange(pointsForAsteroid);
-        currentAmountOfAsteroids -= 1;
+        Debug.Log(asteroidType + " asteroid");
+        switch (asteroidType)
+        {
+            case ("Big"):
+                PointsChange(pointsForBigAsteroid);
+                AsteroidManager.AsteroidsSpawn("Medium");
+                break;
+            case ("Medium"):
+                PointsChange(pointsForMediumAsteroid);
+                AsteroidManager.AsteroidsSpawn("Small");
+                break;
+            case ("Small"):
+                PointsChange(pointsForSmallAsteroid);
+                currentAmountOfSmallAsteroids--;
+                break;
+            default:
+                Debug.Log("Incorrect asteroid type");
+                break;
+        }
     }
 
     private void SetAsteroidParam()

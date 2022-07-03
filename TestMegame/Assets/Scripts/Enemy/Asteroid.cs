@@ -4,6 +4,7 @@ public class Asteroid : MonoBehaviour
 {
     [HideInInspector] public int damageDealt = 1;
     [HideInInspector] public float speed = 1;
+    [HideInInspector] public string asteroidType = "Big";
 
     private PlayerStats playerStats;
     private GameController gameController;
@@ -43,7 +44,7 @@ public class Asteroid : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Bullet")
         {
-            gameController.AsteroidDemolish();
+            gameController.AsteroidDemolish(asteroidType);
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
