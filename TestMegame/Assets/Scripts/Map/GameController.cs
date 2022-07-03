@@ -21,7 +21,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private float AsteroidSpeed;
 
     private GameObject UICanvas;
+    private TextMeshProUGUI[] TextPanels;
     private TextMeshProUGUI PointsPanelText;
+    private TextMeshProUGUI HealthPanelText;
 
     private float screenSizeHeight;
     private float screenSizeWidth;
@@ -33,10 +35,12 @@ public class GameController : MonoBehaviour
 
     private bool isAlive;
 
-    private void Start()
+    private void Awake()
     {
         UICanvas = GameObject.FindGameObjectWithTag("UI");
-        PointsPanelText = UICanvas.GetComponentInChildren<TextMeshProUGUI>();
+        TextPanels = UICanvas.GetComponentsInChildren<TextMeshProUGUI>();
+        PointsPanelText = TextPanels[0];
+        HealthPanelText = TextPanels[1];
 
         SetAsteroidParam();
 
@@ -47,27 +51,18 @@ public class GameController : MonoBehaviour
         AsteroidManager.StageSpawn();
     }
 
-    private void Update()
-    {
-        if (!isAlive)
-        {
-            Debug.Log("GameIsEnd");
-            return;
-        }
-        
-        if (currentAmountOfSmallAsteroids <= 0)
-        {
-            startAsteroidAmount++;
-            AsteroidManager.SetAsteroidsAmount(startAsteroidAmount);
-            AsteroidManager.StageSpawn();
-            currentAmountOfSmallAsteroids = startAsteroidAmount * 2 * 2;
-        }
-    }
-
     private void PointsChange(int points)
     {
         this.points += points;
         PointsPanelText.text = "Points: " + this.points;
+    }
+
+    private void NewStage()
+    {
+        startAsteroidAmount++;
+        AsteroidManager.SetAsteroidsAmount(startAsteroidAmount);
+        AsteroidManager.StageSpawn();
+        currentAmountOfSmallAsteroids = startAsteroidAmount * 2 * 2;
     }
 
     public void GameEnded()
@@ -93,6 +88,10 @@ public class GameController : MonoBehaviour
             case ("Small"):
                 PointsChange(pointsForSmallAsteroid);
                 currentAmountOfSmallAsteroids--;
+                if (currentAmountOfSmallAsteroids <= 0)
+                {
+                    NewStage();
+                }
                 break;
             default:
                 Debug.Log("Incorrect asteroid type");
@@ -106,5 +105,10 @@ public class GameController : MonoBehaviour
         AsteroidManager.SetAsteroidsAmount(startAsteroidAmount);
         AsteroidManager.SetDamage(AsteroidDamage);
         AsteroidManager.setSpeed(AsteroidSpeed);
+    }
+
+    public void HealthChange(int hp)
+    {
+        HealthPanelText.text  = "Health: " + hp;
     }
 }

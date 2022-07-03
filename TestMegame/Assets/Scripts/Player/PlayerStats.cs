@@ -12,6 +12,11 @@ public class PlayerStats : MonoBehaviour
     [Header("Controller")]
     [SerializeField] GameController GameController;
 
+    private void Start()
+    {
+        GameController.HealthChange(hp);
+    }
+
     public void DamageGiven(int damage)
     {
         if (damage <= 0)
@@ -19,7 +24,10 @@ public class PlayerStats : MonoBehaviour
             Debug.Log("damage <= 0");
             return;
         }
+
         hp -= damage;
+        GameController.HealthChange(hp);
+
         if (hp <= 0)
         {
             GameController.GameEnded();
