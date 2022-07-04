@@ -300,9 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfa004d9bdf637d40869893d3fca1359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BigAsteroid: {fileID: 3046979517004254356, guid: 650b5ee4438cc794cb754daf8880a288, type: 3}
-  MediumAsteroid: {fileID: 4650345960535885942, guid: 0f711c88cede5514686c42a70148311f, type: 3}
-  SmallAsteroid: {fileID: 134687967377489568, guid: e20aa2b1a3c983548aab94207506c5c2, type: 3}
 --- !u!1 &359254461
 GameObject:
   m_ObjectHideFlags: 0
@@ -1298,6 +1295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675592378}
   - component: {fileID: 1675592377}
+  - component: {fileID: 1675592379}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -1340,6 +1338,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1675592379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675592376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e7641fec3402d44824b06d61be4ebf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledBulletObjects: []
+  pooledBigAsteroidObjects: []
+  pooledMediumAsteroidObjects: []
+  pooledSmallAsteroidObjects: []
+  BulletPool: {fileID: 3574611004947900692, guid: 911e9f711fa67ea45ab8968193bfda26, type: 3}
+  BigAsteroidPool: {fileID: 3046979517004254356, guid: 650b5ee4438cc794cb754daf8880a288, type: 3}
+  MediumAsteroidPool: {fileID: 4650345960535885942, guid: 0f711c88cede5514686c42a70148311f, type: 3}
+  SmallAsteroidPool: {fileID: 134687967377489568, guid: e20aa2b1a3c983548aab94207506c5c2, type: 3}
+  amountBulletPool: 10
+  amountBigAsteroidPool: 5
 --- !u!1 &1889359983
 GameObject:
   m_ObjectHideFlags: 0

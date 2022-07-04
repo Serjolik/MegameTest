@@ -39,14 +39,15 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            gameController.AsteroidDemolish(asteroidType);
             playerStats.DamageGiven(damageDealt);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Bullet")
         {
             gameController.AsteroidDemolish(asteroidType);
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
+            collision.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
     }
 

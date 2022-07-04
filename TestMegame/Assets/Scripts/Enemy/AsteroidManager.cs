@@ -3,11 +3,6 @@ using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
-    [Header("Астероид")]
-    [SerializeField] private GameObject BigAsteroid;
-    [SerializeField] private GameObject MediumAsteroid;
-    [SerializeField] private GameObject SmallAsteroid;
-
     private Asteroid AsteroidScript;
 
     private int numberDivision = 2;
@@ -33,21 +28,39 @@ public class AsteroidManager : MonoBehaviour
             case ("Big"):
                 for (int i = 0; i < asteroidsAmount; i++)
                 {
-                    Instantiate(BigAsteroid, gameObject.transform.position, gameObject.transform.rotation);
+                    GameObject BigAsteroid = ObjectPool.SharedInstance.GetPooledObject("BigAsteroid");
+                    if (BigAsteroid != null)
+                    {
+                        BigAsteroid.transform.position = gameObject.transform.position;
+                        BigAsteroid.transform.rotation = gameObject.transform.rotation;
+                        BigAsteroid.SetActive(true);
+                    }
                     AsteroidScript = BigAsteroid.GetComponent<Asteroid>();
                 }
                 break;
             case ("Medium"):
                 for (int i = 0; i < numberDivision; i++)
                 {
-                    Instantiate(MediumAsteroid, gameObject.transform.position, gameObject.transform.rotation);
+                    GameObject MediumAsteroid = ObjectPool.SharedInstance.GetPooledObject("MediumAsteroid");
+                    if (MediumAsteroid != null)
+                    {
+                        MediumAsteroid.transform.position = gameObject.transform.position;
+                        MediumAsteroid.transform.rotation = gameObject.transform.rotation;
+                        MediumAsteroid.SetActive(true);
+                    }
                     AsteroidScript = MediumAsteroid.GetComponent<Asteroid>();
                 }
                 break;
             case ("Small"):
                 for (int i = 0; i < numberDivision; i++)
                 {
-                    Instantiate(SmallAsteroid, gameObject.transform.position, gameObject.transform.rotation);
+                    GameObject SmallAsteroid = ObjectPool.SharedInstance.GetPooledObject("SmallAsteroid");
+                    if (SmallAsteroid != null)
+                    {
+                        SmallAsteroid.transform.position = gameObject.transform.position;
+                        SmallAsteroid.transform.rotation = gameObject.transform.rotation;
+                        SmallAsteroid.SetActive(true);
+                    }
                     AsteroidScript = SmallAsteroid.GetComponent<Asteroid>();
                 }
                 break;

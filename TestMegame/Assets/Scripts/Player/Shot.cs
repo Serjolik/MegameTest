@@ -16,7 +16,13 @@ public class Shot : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space) && canShot)
         {
-            Instantiate(Bullet, gameObject.transform.position, gameObject.transform.rotation);
+            GameObject bullet = ObjectPool.SharedInstance.GetPooledObject("Bullet");
+            if (bullet != null)
+            {
+                bullet.transform.position = gameObject.transform.position;
+                bullet.transform.rotation = gameObject.transform.rotation;
+                bullet.SetActive(true);
+            }
             StartCoroutine(shotReload());
         }
     }
