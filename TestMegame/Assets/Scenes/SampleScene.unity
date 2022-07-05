@@ -1324,6 +1324,7 @@ MonoBehaviour:
   pointsForNLO: 200
   AsteroidDamage: 1
   AsteroidSpeed: 1
+  distanceToPlayer: 5
 --- !u!4 &1675592378
 Transform:
   m_ObjectHideFlags: 0
@@ -1350,10 +1351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e7641fec3402d44824b06d61be4ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pooledBulletObjects: []
-  pooledBigAsteroidObjects: []
-  pooledMediumAsteroidObjects: []
-  pooledSmallAsteroidObjects: []
   BulletPool: {fileID: 3574611004947900692, guid: 911e9f711fa67ea45ab8968193bfda26, type: 3}
   BigAsteroidPool: {fileID: 3046979517004254356, guid: 650b5ee4438cc794cb754daf8880a288, type: 3}
   MediumAsteroidPool: {fileID: 4650345960535885942, guid: 0f711c88cede5514686c42a70148311f, type: 3}

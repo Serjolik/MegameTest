@@ -5,10 +5,10 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool SharedInstance;
-    private List<GameObject> pooledBulletObjects;
-    private List<GameObject> pooledBigAsteroidObjects;
-    private List<GameObject> pooledMediumAsteroidObjects;
-    private List<GameObject> pooledSmallAsteroidObjects;
+    private List<GameObject> pooledBulletObjects = new List<GameObject>();
+    private List<GameObject> pooledBigAsteroidObjects = new List<GameObject>();
+    private List<GameObject> pooledMediumAsteroidObjects = new List<GameObject>();
+    private List<GameObject> pooledSmallAsteroidObjects = new List<GameObject>();
     public GameObject BulletPool;
     public GameObject BigAsteroidPool;
     public GameObject MediumAsteroidPool;
@@ -17,6 +17,8 @@ public class ObjectPool : MonoBehaviour
     public int amountBigAsteroidPool;
     private int amountMediumAsteroidPool;
     private int amountSmallAsteroidPool;
+
+    private GameObject tmp;
 
     void Awake()
     {
@@ -27,36 +29,23 @@ public class ObjectPool : MonoBehaviour
     {
         amountMediumAsteroidPool = amountBigAsteroidPool * 2;
         amountSmallAsteroidPool = amountBigAsteroidPool * 2 * 2;
-        pooledBulletObjects = new List<GameObject>();
-        pooledBigAsteroidObjects = new List<GameObject>();
-        pooledMediumAsteroidObjects = new List<GameObject>();
-        pooledSmallAsteroidObjects = new List<GameObject>();
-        GameObject tmp;
 
         for (int i = 0; i < amountBulletPool; i++)
         {
-            tmp = Instantiate(BulletPool);
-            tmp.SetActive(false);
-            pooledBulletObjects.Add(tmp);
+            BulletAddedToPool();
         }
 
         for (int i = 0; i < amountSmallAsteroidPool; i++)
         {
             if (i < amountBigAsteroidPool)
             {
-                tmp = Instantiate(BigAsteroidPool);
-                tmp.SetActive(false);
-                pooledBigAsteroidObjects.Add(tmp);
+                BigAddedToPool();
             }
             if (i < amountMediumAsteroidPool)
             {
-                tmp = Instantiate(MediumAsteroidPool);
-                tmp.SetActive(false);
-                pooledMediumAsteroidObjects.Add(tmp);
+                MediumAddedToPool();
             }
-            tmp = Instantiate(SmallAsteroidPool);
-            tmp.SetActive(false);
-            pooledSmallAsteroidObjects.Add(tmp);
+            SmallAddedToPool();
         }
     }
 
@@ -109,37 +98,53 @@ public class ObjectPool : MonoBehaviour
 
     private GameObject NewPool(string objectType)
     {
-        GameObject tmp;
         if (objectType == "Bullet")
         {
-            tmp = Instantiate(BulletPool);
-            tmp.SetActive(false);
-            pooledBulletObjects.Add(tmp);
+            BulletAddedToPool();
             amountBulletPool++;
             return pooledBulletObjects[amountBulletPool - 1];
         }
         else if (objectType == "BigAsteroid")
         {
-            tmp = Instantiate(BigAsteroidPool);
-            tmp.SetActive(false);
-            pooledBigAsteroidObjects.Add(tmp);
+            BigAddedToPool();
             amountBigAsteroidPool++;
             for (int i = 0; i < 4; i++)
             {
                 if (i % 2 == 0)
                 {
-                    tmp = Instantiate(MediumAsteroidPool);
-                    tmp.SetActive(false);
-                    pooledMediumAsteroidObjects.Add(tmp);
+                    MediumAddedToPool();
                     amountMediumAsteroidPool++;
                 }
-                tmp = Instantiate(SmallAsteroidPool);
-                tmp.SetActive(false);
-                pooledSmallAsteroidObjects.Add(tmp);
+                SmallAddedToPool();
                 amountSmallAsteroidPool++;
             }
             return pooledBigAsteroidObjects[amountBigAsteroidPool - 1];
         }
         return null;
+    }
+
+    private void BulletAddedToPool()
+    {
+        tmp = Instantiate(BulletPool);
+        tmp.SetActive(false);
+        pooledBulletObjects.Add(tmp);
+    }
+    private void BigAddedToPool()
+    {
+        tmp = Instantiate(BigAsteroidPool);
+        tmp.SetActive(false);
+        pooledBigAsteroidObjects.Add(tmp);
+    }
+    private void MediumAddedToPool()
+    {
+        tmp = Instantiate(MediumAsteroidPool);
+        tmp.SetActive(false);
+        pooledMediumAsteroidObjects.Add(tmp);
+    }
+    private void SmallAddedToPool()
+    {
+        tmp = Instantiate(SmallAsteroidPool);
+        tmp.SetActive(false);
+        pooledSmallAsteroidObjects.Add(tmp);
     }
 }

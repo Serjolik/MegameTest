@@ -12,6 +12,7 @@ public class AsteroidManager : MonoBehaviour
     private float speed;
     private Vector3 playerPosition;
     private float spawnDistanceToPlayer;
+    private Vector3 parentPosition;
 
     public void StageSpawn()
     {
@@ -28,33 +29,28 @@ public class AsteroidManager : MonoBehaviour
     {
         for (int i = 0; i < asteroidsAmount; i++)
         {
-            AsteroidInstantiate(asteroidType, new Vector3(0, 0, 0));
+            AsteroidInstantiate(asteroidType);
         }
     }
 
     public void AsteroidsSpawn(string asteroidType, Vector3 ParentPosition)
     {
+        SetParentPosition(ParentPosition);
         for (int i = 0; i < numberDivision; i++)
         {
-            AsteroidInstantiate(asteroidType, ParentPosition);
+            AsteroidInstantiate(asteroidType);
         }
     }
 
-    private void AsteroidInstantiate(string asteroidType, Vector3 ParentPosition)
+    private void AsteroidInstantiate(string asteroidType)
     {
         GameObject Asteroid = ObjectPool.SharedInstance.GetPooledObject(asteroidType);
         Debug.Log(asteroidType);
         if (Asteroid != null)
         {
             Asteroid.SetActive(true);
-            if (asteroidType == "BigAsteroid")
-            {
-                AsteroidSetParams(Asteroid);
-            }
-            else
-            {
-                AsteroidSetParams(Asteroid, asteroidType, ParentPosition);
-            }
+            AsteroidSetParams(Asteroid, asteroidType);
+            ScriptSetting(Asteroid, asteroidType);
         }
         else
         {
@@ -62,22 +58,16 @@ public class AsteroidManager : MonoBehaviour
         }
     }
 
-    private void AsteroidSetParams(GameObject Asteroid, string asteroidType, Vector3 ParentPosition)
+    private void AsteroidSetParams(GameObject Asteroid, string asteroidType)
     {
-        Asteroid.transform.position = ParentPosition;
-        AsteroidScript = Asteroid.GetComponent<Asteroid>();
-        AsteroidScript.damageDealt = damageDealt;
-        AsteroidScript.speed = speed;
-        AsteroidScript.asteroidType = asteroidType;
-    }
-
-    private void AsteroidSetParams(GameObject Asteroid)
-    {
-        Asteroid.transform.position = SetPosition();
-        AsteroidScript = Asteroid.GetComponent<Asteroid>();
-        AsteroidScript.damageDealt = damageDealt;
-        AsteroidScript.speed = speed;
-        AsteroidScript.asteroidType = "BigAsteroid";
+        if (asteroidType == "BigAsteroid")
+        {
+            Asteroid.transform.position = SetPosition();
+        }
+        else
+        {
+            Asteroid.transform.position = parentPosition;
+        }
     }
 
     private Vector3 SetPosition()
@@ -90,11 +80,6 @@ public class AsteroidManager : MonoBehaviour
             newPosition = new Vector3(x_position, y_position, 0);
         }
         return newPosition;
-    }
-
-    public int GiveAsteroidsAmount()
-    {
-        return asteroidsAmount;
     }
 
     public void SetSpawnRate(int spawnRate)
@@ -122,6 +107,11 @@ public class AsteroidManager : MonoBehaviour
         playerPosition = position;
     }
 
+    public void SetParentPosition(Vector3 position)
+    {
+        this.parentPosition = position;
+    }
+
     public void SetDistanceToPlayer(float spawnDistanceToPlayer)
     {
         if (spawnDistanceToPlayer >= 9f)
@@ -130,5 +120,13 @@ public class AsteroidManager : MonoBehaviour
             spawnDistanceToPlayer = 5;
         }
         this.spawnDistanceToPlayer = spawnDistanceToPlayer;
-}
+    }
+
+    private void ScriptSetting(GameObject Asteroid, string asteroidType)
+    {
+        AsteroidScript = Asteroid.GetComponent<Asteroid>();
+        AsteroidScript.damageDealt = damageDealt;
+        AsteroidScript.speed = speed;
+        AsteroidScript.asteroidType = asteroidType;
+    }
 }
