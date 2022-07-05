@@ -17,8 +17,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private int pointsForSmallAsteroid = 100;
     [SerializeField] private int pointsForNLO = 200;
 
-    [SerializeField] private int AsteroidDamage;
-    [SerializeField] private float AsteroidSpeed;
+    [SerializeField] private int AsteroidDamage = 1;
+    [SerializeField] private float AsteroidSpeed = 1f;
+
+    [Header("На какой дистанции от игрока могут появлятся астероиды")]
+    [SerializeField] private float distanceToPlayer = 5f;
+
+    private Transform playerTransform;
+    private Vector3 playerPosition;
 
     private GameObject UICanvas;
     private TextMeshProUGUI[] TextPanels;
@@ -42,12 +48,18 @@ public class GameController : MonoBehaviour
         PointsPanelText = TextPanels[0];
         HealthPanelText = TextPanels[1];
 
-        SetAsteroidParam();
+        playerTransform = gameObject.GetComponentInChildren<Transform>();
+        playerPosition = playerTransform.position;
 
         currentAmountOfSmallAsteroids = startAsteroidAmount * 2 * 2;
 
         isAlive = true;
         points = 0;
+    }
+
+    private void Start()
+    {
+        SetAsteroidParam();
         AsteroidManager.StageSpawn();
     }
 
@@ -71,27 +83,28 @@ public class GameController : MonoBehaviour
         Debug.Log("Game is end with " + points + " points");
     }
 
-    public void AsteroidDemolish(string asteroidType)
+    public void AsteroidDemolish()
     {
-        Debug.Log("Asteroid is demolish");
-        Debug.Log(asteroidType + " asteroid");
+        Debug.Log("Small asteroid is demolish");
+        PointsChange(pointsForSmallAsteroid);
+        currentAmountOfSmallAsteroids--;
+        if (currentAmountOfSmallAsteroids <= 0)
+        {
+            NewStage();
+        }
+    }
+
+    public void AsteroidDemolish(string asteroidType, Vector3 asteroidPosition)
+    {
         switch (asteroidType)
         {
-            case ("Big"):
+            case ("BigAsteroid"):
                 PointsChange(pointsForBigAsteroid);
-                AsteroidManager.AsteroidsSpawn("Medium");
+                AsteroidManager.AsteroidsSpawn("MediumAsteroid", asteroidPosition);
                 break;
-            case ("Medium"):
+            case ("MediumAsteroid"):
                 PointsChange(pointsForMediumAsteroid);
-                AsteroidManager.AsteroidsSpawn("Small");
-                break;
-            case ("Small"):
-                PointsChange(pointsForSmallAsteroid);
-                currentAmountOfSmallAsteroids--;
-                if (currentAmountOfSmallAsteroids <= 0)
-                {
-                    NewStage();
-                }
+                AsteroidManager.AsteroidsSpawn("SmallAsteroid", asteroidPosition);
                 break;
             default:
                 Debug.Log("Incorrect asteroid type");
@@ -105,6 +118,8 @@ public class GameController : MonoBehaviour
         AsteroidManager.SetAsteroidsAmount(startAsteroidAmount);
         AsteroidManager.SetDamage(AsteroidDamage);
         AsteroidManager.setSpeed(AsteroidSpeed);
+        AsteroidManager.SetDistanceToPlayer(distanceToPlayer);
+        AsteroidManager.SetPlayerPosition(playerPosition);
     }
 
     public void HealthChange(int hp)

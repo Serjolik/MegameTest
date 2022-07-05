@@ -5,10 +5,10 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool SharedInstance;
-    public List<GameObject> pooledBulletObjects;
-    public List<GameObject> pooledBigAsteroidObjects;
-    public List<GameObject> pooledMediumAsteroidObjects;
-    public List<GameObject> pooledSmallAsteroidObjects;
+    private List<GameObject> pooledBulletObjects;
+    private List<GameObject> pooledBigAsteroidObjects;
+    private List<GameObject> pooledMediumAsteroidObjects;
+    private List<GameObject> pooledSmallAsteroidObjects;
     public GameObject BulletPool;
     public GameObject BigAsteroidPool;
     public GameObject MediumAsteroidPool;

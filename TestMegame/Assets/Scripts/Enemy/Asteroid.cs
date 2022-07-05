@@ -4,7 +4,7 @@ public class Asteroid : MonoBehaviour
 {
     [HideInInspector] public int damageDealt = 1;
     [HideInInspector] public float speed = 1;
-    [HideInInspector] public string asteroidType = "Big";
+    [HideInInspector] public string asteroidType = "BigAsteroid";
 
     private PlayerStats playerStats;
     private GameController gameController;
@@ -39,15 +39,15 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            gameController.AsteroidDemolish(asteroidType);
-            playerStats.DamageGiven(damageDealt);
             gameObject.SetActive(false);
+            Demolishing();
+            playerStats.DamageGiven(damageDealt);
         }
         else if (collision.gameObject.tag == "Bullet")
         {
-            gameController.AsteroidDemolish(asteroidType);
-            collision.gameObject.SetActive(false);
             gameObject.SetActive(false);
+            Demolishing();
+            collision.gameObject.SetActive(false);
         }
     }
 
@@ -66,5 +66,17 @@ public class Asteroid : MonoBehaviour
             power--;
         }
         return result;
+    }
+
+    private void Demolishing()
+    {
+        if(asteroidType != "SmallAsteroid")
+        {
+            gameController.AsteroidDemolish(asteroidType, asteroidTransform.position);
+        }
+        else
+        {
+            gameController.AsteroidDemolish();
+        }
     }
 }
