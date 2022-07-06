@@ -75,8 +75,8 @@ public class AsteroidManager : MonoBehaviour
         var newPosition = new Vector3(playerPosition.x , playerPosition.y, 0);
         while (Vector3.Distance(newPosition, playerPosition) <= spawnDistanceToPlayer)
         {
-            var x_position = Random.Range(-9f, 9f);
-            var y_position = Random.Range(-4f, 4f);
+            var x_position = Random.Range(-9f, 9f + 1);
+            var y_position = Random.Range(-4f, 4f + 1);
             newPosition = new Vector3(x_position, y_position, 0);
         }
         return newPosition;

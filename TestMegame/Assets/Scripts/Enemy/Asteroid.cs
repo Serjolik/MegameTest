@@ -39,15 +39,18 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            gameObject.SetActive(false);
-            Demolishing();
-            playerStats.DamageGiven(damageDealt);
+            PlayerBump();
         }
         else if (collision.gameObject.tag == "Bullet")
         {
             gameObject.SetActive(false);
             Demolishing();
             collision.gameObject.SetActive(false);
+        }
+        else if (collision.gameObject.tag == "Ufo")
+        {
+            collision.gameObject.SetActive(false);
+            UfoBump();
         }
     }
 
@@ -78,5 +81,19 @@ public class Asteroid : MonoBehaviour
         {
             gameController.AsteroidDemolish();
         }
+    }
+
+    private void PlayerBump()
+    {
+        gameObject.SetActive(false);
+        playerStats.DamageGiven(damageDealt);
+        gameController.AsteroidDeleted(asteroidType);
+    }
+
+    private void UfoBump()
+    {
+        gameObject.SetActive(false);
+        gameController.AsteroidDeleted(asteroidType);
+        gameController.UfoDemolish("Bump");
     }
 }
