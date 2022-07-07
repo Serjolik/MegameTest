@@ -27,6 +27,11 @@ public class UfoShot : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(shotReload());
+    }
+
     private IEnumerator shotReload()
     {
         canShot = false;

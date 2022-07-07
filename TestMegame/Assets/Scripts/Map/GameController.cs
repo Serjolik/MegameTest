@@ -64,6 +64,7 @@ public class GameController : MonoBehaviour
         SetAsteroidParam();
         SetUfoParam();
         AsteroidManager.StageSpawn();
+        UfoAddedToScene();
     }
 
     private void PointsChange(int points)

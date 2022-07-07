@@ -19,11 +19,10 @@ public class Ufo : MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(false);
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         ufoTransform = gameObject.transform;
-
-        Activation();
 
         var direction = Random.Range(0, 1 + 1);
         if (direction == 0)
