@@ -8,7 +8,7 @@ public class Ufo : MonoBehaviour
     private Transform ufoTransform;
     private Vector3 vectorMovement;
 
-    private Transform playerTransform;
+    [SerializeField] private Transform playerTransform;
     private Vector3 playerPosition;
 
     private float speed;
@@ -75,9 +75,9 @@ public class Ufo : MonoBehaviour
         this.damage = damage;
     }
 
-    public void SetPlayerPosition(Vector3 position)
+    public void SetPlayerPosition()
     {
-        playerPosition = position;
+        playerPosition = playerTransform.position;
     }
 
     public void SetDistanceToPlayer(float spawnDistanceToPlayer)
@@ -92,11 +92,12 @@ public class Ufo : MonoBehaviour
 
     private Vector3 SetPosition()
     {
+        SetPlayerPosition();
         var newPosition = new Vector3(playerPosition.x, playerPosition.y, 0);
         while (Vector3.Distance(newPosition, playerPosition) <= spawnDistanceToPlayer)
         {
-            var x_position = Random.Range(-9f, 9f + 1);
-            var y_position = Random.Range(-4f, 4f + 1);
+            var x_position = Random.Range(-9f * 0.75f, (9f + 1) * 0.75f);
+            var y_position = Random.Range(-4f * 0.75f, (4f + 1) * 0.75f);
             newPosition = new Vector3(x_position, y_position, 0);
         }
         return newPosition;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AsteroidManager : MonoBehaviour
 {
+    [SerializeField] private Transform playerTransform;
     private Asteroid AsteroidScript;
 
     private int numberDivision = 2;
@@ -22,6 +23,7 @@ public class AsteroidManager : MonoBehaviour
     private IEnumerator TimerToSpawn()
     {
         yield return new WaitForSeconds(spawnRate);
+        SetPlayerPosition();
         AsteroidsSpawn("BigAsteroid");
     }
 
@@ -102,9 +104,9 @@ public class AsteroidManager : MonoBehaviour
         this.speed = speed;
     }
 
-    public void SetPlayerPosition(Vector3 position)
+    public void SetPlayerPosition()
     {
-        playerPosition = position;
+        playerPosition = playerTransform.position;
     }
 
     public void SetParentPosition(Vector3 position)

@@ -181,7 +181,6 @@ public class GameController : MonoBehaviour
         AsteroidManager.SetDamage(ObjectsDamage);
         AsteroidManager.setSpeed(asteroidSpeed);
         AsteroidManager.SetDistanceToPlayer(distanceToPlayer);
-        AsteroidManager.SetPlayerPosition(playerPosition);
     }
 
     private void SetUfoParam()
@@ -190,7 +189,6 @@ public class GameController : MonoBehaviour
         Ufo.SetAttackSpeed(ufoAttackSpeed);
         Ufo.SetDamage(ObjectsDamage);
         Ufo.SetDistanceToPlayer(distanceToPlayer);
-        Ufo.SetPlayerPosition(playerPosition);
     }
 
     public void HealthChange(int hp)

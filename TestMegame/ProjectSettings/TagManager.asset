@@ -7,6 +7,7 @@ TagManager:
   - Bullet
   - UI
   - Ufo
+  - UfoBullet
   layers:
   - Default
   - TransparentFX
