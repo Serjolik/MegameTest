@@ -14,6 +14,9 @@ public class AsteroidManager : MonoBehaviour
     private Vector3 playerPosition;
     private float spawnDistanceToPlayer;
     private Vector3 parentPosition;
+    private Vector3 parentMovement;
+
+    private bool isPositiveSpawnAngle;
 
     public void StageSpawn()
     {
@@ -35,8 +38,11 @@ public class AsteroidManager : MonoBehaviour
         }
     }
 
-    public void AsteroidsSpawn(string asteroidType, Vector3 ParentPosition)
+    public void AsteroidsSpawn(string asteroidType, Vector3 ParentPosition, Vector3 parentMovement)
     {
+        Debug.Log(parentMovement);
+        this.parentMovement = parentMovement;
+
         SetParentPosition(ParentPosition);
         for (int i = 0; i < numberDivision; i++)
         {
@@ -130,5 +136,15 @@ public class AsteroidManager : MonoBehaviour
         AsteroidScript.damageDealt = damageDealt;
         AsteroidScript.speed = speed;
         AsteroidScript.asteroidType = asteroidType;
+        if (asteroidType != "BigAsteroid")
+        {
+            AngleSwither();
+            AsteroidScript.SetVectorMovement(parentMovement, isPositiveSpawnAngle);
+        }
+    }
+
+    private void AngleSwither()
+    {
+        isPositiveSpawnAngle = !isPositiveSpawnAngle;
     }
 }

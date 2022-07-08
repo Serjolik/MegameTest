@@ -24,10 +24,13 @@ public class Asteroid : MonoBehaviour
 
         asteroidTransform = gameObject.transform;
 
-        multiplier = PowInTen(decimal_point_precision);
-        x_direction = (float)Random.Range(-multiplier, multiplier) / multiplier;
-        y_direction = (float)Random.Range(-multiplier, multiplier) / multiplier;
-        vectorMovement = new Vector3(x_direction, y_direction, 0);
+        if (asteroidType == "BigAsteroid")
+        {
+            multiplier = PowInTen(decimal_point_precision);
+            x_direction = (float)Random.Range(-multiplier, multiplier) / multiplier;
+            y_direction = (float)Random.Range(-multiplier, multiplier) / multiplier;
+            vectorMovement = new Vector3(x_direction, y_direction, 0);
+        }
     }
 
     private void Update()
@@ -75,7 +78,7 @@ public class Asteroid : MonoBehaviour
     {
         if(asteroidType != "SmallAsteroid")
         {
-            gameController.AsteroidDemolish(asteroidType, asteroidTransform.position);
+            gameController.AsteroidDemolish(asteroidType, asteroidTransform.position, vectorMovement);
         }
         else
         {
@@ -95,5 +98,27 @@ public class Asteroid : MonoBehaviour
         gameObject.SetActive(false);
         gameController.AsteroidDeleted(asteroidType);
         gameController.UfoDemolish("Bump");
+    }
+
+    private int SetRotation(bool angleSwither)
+    {
+        var rotation = 0;
+        if (angleSwither)
+        {
+            rotation = 45;
+        }
+        else
+        {
+            rotation = 380 - 45;
+        }
+        return rotation;
+    }
+
+    public void SetVectorMovement(Vector3 vectorMovement, bool angleSwither)
+    {
+        var angle = SetRotation(angleSwither);
+        Debug.Log(angle);
+        vectorMovement = Quaternion.Euler(0, angle, 0) * vectorMovement;
+        this.vectorMovement = vectorMovement;
     }
 }

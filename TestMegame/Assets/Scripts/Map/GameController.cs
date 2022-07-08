@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
 
     private bool isAlive;
     private bool isUfoAlive;
+    private bool isPositiveSpawnAngle;
 
     private void Awake()
     {
@@ -98,17 +99,17 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void AsteroidDemolish(string asteroidType, Vector3 asteroidPosition)
+    public void AsteroidDemolish(string asteroidType, Vector3 asteroidPosition, Vector3 vectorMovement)
     {
         switch (asteroidType)
         {
             case ("BigAsteroid"):
                 PointsChange(pointsForBigAsteroid);
-                AsteroidManager.AsteroidsSpawn("MediumAsteroid", asteroidPosition);
+                AsteroidManager.AsteroidsSpawn("MediumAsteroid", asteroidPosition, vectorMovement);
                 break;
             case ("MediumAsteroid"):
                 PointsChange(pointsForMediumAsteroid);
-                AsteroidManager.AsteroidsSpawn("SmallAsteroid", asteroidPosition);
+                AsteroidManager.AsteroidsSpawn("SmallAsteroid", asteroidPosition, vectorMovement);
                 break;
             default:
                 Debug.Log("Incorrect asteroid type");
