@@ -8,12 +8,13 @@ public class ObjectPool : MonoBehaviour
     private List<GameObject> pooledBigAsteroidObjects = new List<GameObject>();
     private List<GameObject> pooledMediumAsteroidObjects = new List<GameObject>();
     private List<GameObject> pooledSmallAsteroidObjects = new List<GameObject>();
-    public GameObject BulletPool;
-    public GameObject BigAsteroidPool;
-    public GameObject MediumAsteroidPool;
-    public GameObject SmallAsteroidPool;
-    public int amountBulletPool;
-    public int amountBigAsteroidPool;
+    [SerializeField] private GameObject BulletPool;
+    [SerializeField] private GameObject BigAsteroidPool;
+    [SerializeField] private GameObject MediumAsteroidPool;
+    [SerializeField] private GameObject SmallAsteroidPool;
+    [SerializeField] private int amountBulletPool;
+    [SerializeField] private int amountBigAsteroidPool;
+
     private int amountMediumAsteroidPool;
     private int amountSmallAsteroidPool;
 

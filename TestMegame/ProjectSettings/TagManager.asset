@@ -8,6 +8,7 @@ TagManager:
   - UI
   - Ufo
   - UfoBullet
+  - Menu
   layers:
   - Default
   - TransparentFX

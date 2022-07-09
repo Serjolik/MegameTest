@@ -12,7 +12,6 @@ public class Ufo : MonoBehaviour
     private Vector3 playerPosition;
 
     private float speed;
-    private float attackSpeed;
     private int damage;
 
     private float spawnDistanceToPlayer;
@@ -62,11 +61,6 @@ public class Ufo : MonoBehaviour
     public void SetSpeed(float speed)
     {
         this.speed = speed;
-    }
-
-    public void SetAttackSpeed(float attackSpeed)
-    {
-        this.attackSpeed = attackSpeed;
     }
 
     public void SetDamage(int damage)

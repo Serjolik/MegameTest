@@ -13,7 +13,6 @@ public class Asteroid : MonoBehaviour
 
     private int decimal_point_precision = 3;
     private int multiplier;
-
     private float x_direction;
     private float y_direction;
 
@@ -109,7 +108,7 @@ public class Asteroid : MonoBehaviour
         }
         else
         {
-            rotation = 380 - 45;
+            rotation = -45;
         }
         return rotation;
     }
@@ -117,8 +116,7 @@ public class Asteroid : MonoBehaviour
     public void SetVectorMovement(Vector3 vectorMovement, bool angleSwither)
     {
         var angle = SetRotation(angleSwither);
-        Debug.Log(angle);
-        vectorMovement = Quaternion.Euler(0, angle, 0) * vectorMovement;
+        vectorMovement = Quaternion.AngleAxis(angle, Vector3.forward) * vectorMovement;
         this.vectorMovement = vectorMovement;
     }
 }

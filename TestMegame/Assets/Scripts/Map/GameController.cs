@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] private AsteroidManager AsteroidManager;
     [SerializeField] private Ufo Ufo;
+    [SerializeField] private GameObject Menu;
     [Space]
     [Header("Variables")]
     [SerializeField] private int asteroidSpawnReloading = 2;
@@ -17,7 +18,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private int pointsForSmallAsteroid = 100;
     [SerializeField] private int pointsForUFO = 200;
 
-    [SerializeField] private int ObjectsDamage = 1;
+    [SerializeField] private int ObjectsBumpDamage = 1;
     [SerializeField] private float asteroidSpeed = 1f;
     [SerializeField] private float ufoSpeed = 1f;
     [SerializeField] private float ufoAttackSpeed = 1f;
@@ -40,13 +41,17 @@ public class GameController : MonoBehaviour
 
     private int points;
 
-    private bool isAlive;
+    private MenuController menuController;
+
+    [HideInInspector] public bool isAlive;
     private bool isUfoAlive;
     private bool isPositiveSpawnAngle;
+    [HideInInspector] public bool inMenu;
 
     private void Awake()
     {
         UICanvas = GameObject.FindGameObjectWithTag("UI");
+
         TextPanels = UICanvas.GetComponentsInChildren<TextMeshProUGUI>();
         PointsPanelText = TextPanels[0];
         HealthPanelText = TextPanels[1];
@@ -56,7 +61,7 @@ public class GameController : MonoBehaviour
 
         currentAmountOfSmallAsteroids = startAsteroidAmount * 2 * 2;
 
-        isAlive = true;
+        isAlive = false;
         points = 0;
     }
 
@@ -66,8 +71,30 @@ public class GameController : MonoBehaviour
         SetUfoParam();
         AsteroidManager.StageSpawn();
         UfoAddedToScene();
+
+        Menu = GameObject.FindGameObjectWithTag("Menu");
+        menuController = Menu.GetComponent<MenuController>();
+        menuController.GameStarting();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && isAlive)
+        {
+            if (!inMenu)
+            {
+                inMenu = true;
+                Time.timeScale = 0;
+                Menu.SetActive(true);
+            }
+            else
+            {
+                inMenu = false;
+                Time.timeScale = 1;
+                Menu.SetActive(false);
+            }
+        }
+    }
     private void PointsChange(int points)
     {
         this.points += points;
@@ -180,7 +207,7 @@ public class GameController : MonoBehaviour
     {
         AsteroidManager.SetSpawnRate(asteroidSpawnReloading);
         AsteroidManager.SetAsteroidsAmount(startAsteroidAmount);
-        AsteroidManager.SetDamage(ObjectsDamage);
+        AsteroidManager.SetDamage(ObjectsBumpDamage);
         AsteroidManager.setSpeed(asteroidSpeed);
         AsteroidManager.SetDistanceToPlayer(distanceToPlayer);
     }
@@ -188,8 +215,7 @@ public class GameController : MonoBehaviour
     private void SetUfoParam()
     {
         Ufo.SetSpeed(ufoSpeed);
-        Ufo.SetAttackSpeed(ufoAttackSpeed);
-        Ufo.SetDamage(ObjectsDamage);
+        Ufo.SetDamage(ObjectsBumpDamage);
         Ufo.SetDistanceToPlayer(distanceToPlayer);
     }
 
