@@ -9,6 +9,7 @@ TagManager:
   - Ufo
   - UfoBullet
   - Menu
+  - Ship
   layers:
   - Default
   - TransparentFX

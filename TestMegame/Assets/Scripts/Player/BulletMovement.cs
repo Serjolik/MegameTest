@@ -3,13 +3,12 @@ using UnityEngine;
 public class BulletMovement : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
-    [SerializeField] private float startRange = 15f;
     private float maxRange;
     private Transform bulletTransform;
 
     private void Start()
     {
-        maxRange = startRange;
+        maxRange = (float)Screen.width / 100;
         bulletTransform = gameObject.transform;
     }
     private void Update()
@@ -23,6 +22,6 @@ public class BulletMovement : MonoBehaviour
     }
     private void OnEnable()
     {
-        maxRange = startRange;
+        maxRange = (float)Screen.width / 100;
     }
 }

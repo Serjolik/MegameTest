@@ -9,24 +9,39 @@ public class Shot : MonoBehaviour
     [Header("Пуля")]
     [SerializeField] private GameObject Bullet;
 
+    [HideInInspector] public bool controlMode;
     private bool canShot = true;
     private Vector3 direction;
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) && canShot)
+        if (controlMode)
         {
-            GameObject bullet = ObjectPool.SharedInstance.GetPooledObject("Bullet");
-            if (bullet != null)
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && canShot)
             {
-                bullet.transform.position = gameObject.transform.position;
-                bullet.transform.rotation = gameObject.transform.rotation;
-                bullet.SetActive(true);
+                Shotting();
             }
-            StartCoroutine(shotReload());
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && canShot)
+            {
+                Shotting();
+            }
         }
     }
 
+    private void Shotting()
+    {
+        GameObject bullet = ObjectPool.SharedInstance.GetPooledObject("Bullet");
+        if (bullet != null)
+        {
+            bullet.transform.position = gameObject.transform.position;
+            bullet.transform.rotation = gameObject.transform.rotation;
+            bullet.SetActive(true);
+        }
+        StartCoroutine(shotReload());
+    }
     private IEnumerator shotReload()
     {
         canShot = false;

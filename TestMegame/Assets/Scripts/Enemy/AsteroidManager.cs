@@ -16,6 +16,9 @@ public class AsteroidManager : MonoBehaviour
     private Vector3 parentPosition;
     private Vector3 parentMovement;
 
+    private float max_x;
+    private float max_y;
+
     private bool isPositiveSpawnAngle;
 
     public void StageSpawn()
@@ -83,8 +86,12 @@ public class AsteroidManager : MonoBehaviour
         var newPosition = new Vector3(playerPosition.x , playerPosition.y, 0);
         while (Vector3.Distance(newPosition, playerPosition) <= spawnDistanceToPlayer)
         {
-            var x_position = Random.Range(-9f, 9f + 1);
-            var y_position = Random.Range(-4f, 4f + 1);
+            max_x = Screen.width / 100;
+            max_y = Screen.height / 100;
+            var x = (float)max_x;
+            var y = (float)max_y;
+            var x_position = Random.Range(-x, x + 1f);
+            var y_position = Random.Range(-y, y + 1f);
             newPosition = new Vector3(x_position, y_position, 0);
         }
         return newPosition;
@@ -122,9 +129,9 @@ public class AsteroidManager : MonoBehaviour
 
     public void SetDistanceToPlayer(float spawnDistanceToPlayer)
     {
-        if (spawnDistanceToPlayer >= 9f)
+        if (spawnDistanceToPlayer >= Screen.width)
         {
-            Debug.Log("Distance is too huge (>= 9). Param set to 5");
+            Debug.Log("Distance is too huge (>= screen width). Param set to 5");
             spawnDistanceToPlayer = 5;
         }
         this.spawnDistanceToPlayer = spawnDistanceToPlayer;

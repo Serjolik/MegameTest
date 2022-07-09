@@ -21,7 +21,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private int ObjectsBumpDamage = 1;
     [SerializeField] private float asteroidSpeed = 1f;
     [SerializeField] private float ufoSpeed = 1f;
-    [SerializeField] private float ufoAttackSpeed = 1f;
 
     [Header("На какой дистанции от игрока могут появлятся астероиды")]
     [SerializeField] private float distanceToPlayer = 5f;
@@ -46,6 +45,7 @@ public class GameController : MonoBehaviour
     [HideInInspector] public bool isAlive;
     private bool isUfoAlive;
     private bool isPositiveSpawnAngle;
+
     [HideInInspector] public bool inMenu;
 
     private void Awake()
@@ -112,6 +112,10 @@ public class GameController : MonoBehaviour
     public void GameEnded()
     {
         isAlive = false;
+        inMenu = true;
+        Time.timeScale = 0;
+        Menu.SetActive(true);
+        menuController.ContinueButton.interactable = false;
         Debug.Log("Game is end with " + points + " points");
     }
 

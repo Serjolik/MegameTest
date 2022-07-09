@@ -1,20 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;   
+using UnityEngine.UI;
+using TMPro;
 
 public class MenuController : MonoBehaviour
 {
 
-    [SerializeField] private GameController gameController;
-    [SerializeField] Button ContinueButton;
+    private GameController gameController;
+    private PlayerMovement playerMovement;
+    private Shot playerShot;
+    private GameObject playerShip;
+    [SerializeField] public Button ContinueButton;
+    [SerializeField] private TextMeshProUGUI ControlText;
 
     private static Dictionary<string, GameObject> _instances = new Dictionary<string, GameObject>();
     public string ID;
     private bool isGameStarted;
+    private bool controlMode;
 
     private void Awake()
     {
+        ControlText.text = "Мышь";
         if (_instances.ContainsKey(ID))
         {
             var existing = _instances[ID];
@@ -47,17 +54,34 @@ public class MenuController : MonoBehaviour
 
     public void ChangeControlPressed()
     {
+        if (controlMode)
+        {
+            ControlText.text = "Мышь";
+        }
+        else
+        {
+            ControlText.text = "Клавиатура";
+        }
+        controlMode = !controlMode;
+        playerShot.controlMode = controlMode;
+        playerMovement.controlMode = controlMode;
         Debug.Log("ChangeControl");
     }
 
     public void ExitPressed()
     {
+        Debug.Log("Exit");
         Application.Quit();
     }
 
     public void GameStarting()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        playerShip = GameObject.FindGameObjectWithTag("Ship");
+        playerMovement = playerShip.GetComponent<PlayerMovement>();
+        playerShot = playerShip.GetComponentInChildren<Shot>();
+        playerShot.controlMode = controlMode;
+        playerMovement.controlMode = controlMode;
         if (isGameStarted)
         {
             ContinueButton.interactable = true;

@@ -236,8 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb0e61f9013ce945a5eae7a20c4bf9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 1675592377}
   ContinueButton: {fileID: 1055411138}
+  ControlText: {fileID: 1839862265}
   ID: 
 --- !u!1 &288102619
 GameObject:
@@ -2360,6 +2360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletReload: 3
   Bullet: {fileID: 3574611004947900692, guid: 911e9f711fa67ea45ab8968193bfda26, type: 3}
+  controlMode: 0
 --- !u!4 &1390482119
 Transform:
   m_ObjectHideFlags: 0
@@ -2594,7 +2595,6 @@ MonoBehaviour:
   ObjectsBumpDamage: 1
   asteroidSpeed: 1
   ufoSpeed: 1
-  ufoAttackSpeed: 1
   distanceToPlayer: 5
   isAlive: 0
   inMenu: 0
@@ -3019,7 +3019,7 @@ GameObject:
   - component: {fileID: 1889359988}
   m_Layer: 0
   m_Name: SpaceShip
-  m_TagString: Player
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3051,6 +3051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eb06fdef4c5d264eac871798f64622a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlMode: 0
 --- !u!212 &1889359986
 SpriteRenderer:
   m_ObjectHideFlags: 0

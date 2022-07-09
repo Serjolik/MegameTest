@@ -14,6 +14,9 @@ public class Ufo : MonoBehaviour
     private float speed;
     private int damage;
 
+    private int max_x;
+    private int max_y;
+
     private float spawnDistanceToPlayer;
 
     private void Start()
@@ -39,7 +42,7 @@ public class Ufo : MonoBehaviour
             collision.gameObject.SetActive(false);
             gameController.UfoDemolish("Demolish");
         }
-        else if (collision.gameObject.tag == "Player")
+        else if (collision.gameObject.tag == "Ship")
         {
             gameObject.SetActive(false);
             playerStats.DamageGiven(damage);
@@ -75,9 +78,9 @@ public class Ufo : MonoBehaviour
 
     public void SetDistanceToPlayer(float spawnDistanceToPlayer)
     {
-        if (spawnDistanceToPlayer >= 9f)
+        if (spawnDistanceToPlayer >= Screen.width)
         {
-            Debug.Log("Distance is too huge (>= 9). Param set to 5");
+            Debug.Log("Distance is too huge (>= Screen width). Param set to 5");
             spawnDistanceToPlayer = 5;
         }
         this.spawnDistanceToPlayer = spawnDistanceToPlayer;
@@ -89,8 +92,12 @@ public class Ufo : MonoBehaviour
         var newPosition = new Vector3(playerPosition.x, playerPosition.y, 0);
         while (Vector3.Distance(newPosition, playerPosition) <= spawnDistanceToPlayer)
         {
-            var x_position = Random.Range(-9f * 0.75f, (9f + 1) * 0.75f);
-            var y_position = Random.Range(-4f * 0.75f, (4f + 1) * 0.75f);
+            max_x = Screen.width / 100;
+            max_y = Screen.height / 100;
+            var x = (float)max_x * 0.75f;
+            var y = (float)max_y * 0.75f;
+            var x_position = Random.Range(-x, x + 1f);
+            var y_position = Random.Range(-y, y + 1f);
             newPosition = new Vector3(x_position, y_position, 0);
         }
         return newPosition;
