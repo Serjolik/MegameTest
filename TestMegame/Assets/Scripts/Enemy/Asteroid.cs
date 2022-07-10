@@ -5,6 +5,7 @@ public class Asteroid : MonoBehaviour
     [HideInInspector] public int damageDealt = 1;
     [HideInInspector] public float speed = 1;
     [HideInInspector] public string asteroidType = "BigAsteroid";
+    [SerializeField] AudioClip ExplousionSound;
 
     private PlayerStats playerStats;
     private GameController gameController;
@@ -41,16 +42,19 @@ public class Asteroid : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ship")
         {
+            AudioSource.PlayClipAtPoint(ExplousionSound, transform.position);
             PlayerBump();
         }
         else if (collision.gameObject.tag == "Bullet")
         {
+            AudioSource.PlayClipAtPoint(ExplousionSound, transform.position);
             gameObject.SetActive(false);
             Demolishing();
             collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Ufo")
         {
+            AudioSource.PlayClipAtPoint(ExplousionSound, transform.position);
             collision.gameObject.SetActive(false);
             UfoBump();
         }
@@ -113,10 +117,10 @@ public class Asteroid : MonoBehaviour
         return rotation;
     }
 
-    public void SetVectorMovement(Vector3 vectorMovement, bool angleSwither)
+    public void SetVectorMovement(Vector3 vectorMovement, bool angleSwither, float speedModify)
     {
         var angle = SetRotation(angleSwither);
         vectorMovement = Quaternion.AngleAxis(angle, Vector3.forward) * vectorMovement;
-        this.vectorMovement = vectorMovement;
+        this.vectorMovement = vectorMovement * speedModify;
     }
 }

@@ -4,14 +4,17 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     public static ObjectPool SharedInstance;
+
     private List<GameObject> pooledBulletObjects = new List<GameObject>();
     private List<GameObject> pooledBigAsteroidObjects = new List<GameObject>();
     private List<GameObject> pooledMediumAsteroidObjects = new List<GameObject>();
     private List<GameObject> pooledSmallAsteroidObjects = new List<GameObject>();
+
     [SerializeField] private GameObject BulletPool;
     [SerializeField] private GameObject BigAsteroidPool;
     [SerializeField] private GameObject MediumAsteroidPool;
     [SerializeField] private GameObject SmallAsteroidPool;
+
     [SerializeField] private int amountBulletPool;
     [SerializeField] private int amountBigAsteroidPool;
 

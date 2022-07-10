@@ -7,12 +7,13 @@ using TMPro;
 public class MenuController : MonoBehaviour
 {
 
-    private GameController gameController;
-    private PlayerMovement playerMovement;
-    private Shot playerShot;
-    private GameObject playerShip;
+    [SerializeField] private GameController gameController;
+    [SerializeField] private GameObject playerShip;
     [SerializeField] public Button ContinueButton;
     [SerializeField] private TextMeshProUGUI ControlText;
+
+    private PlayerMovement playerMovement;
+    private Shot playerShot;
 
     private static Dictionary<string, GameObject> _instances = new Dictionary<string, GameObject>();
     public string ID;
@@ -64,7 +65,7 @@ public class MenuController : MonoBehaviour
         }
         controlMode = !controlMode;
         playerShot.controlMode = controlMode;
-        playerMovement.controlMode = controlMode;
+        playerMovement.ControlMode = controlMode;
         Debug.Log("ChangeControl");
     }
 
@@ -81,7 +82,8 @@ public class MenuController : MonoBehaviour
         playerMovement = playerShip.GetComponent<PlayerMovement>();
         playerShot = playerShip.GetComponentInChildren<Shot>();
         playerShot.controlMode = controlMode;
-        playerMovement.controlMode = controlMode;
+        playerMovement.ControlMode = controlMode;
+        playerMovement.ControlMode = controlMode;
         if (isGameStarted)
         {
             ContinueButton.interactable = true;

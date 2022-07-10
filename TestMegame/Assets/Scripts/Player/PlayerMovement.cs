@@ -2,31 +2,32 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerStats playerStats;
-    private float force;
-    private float speedLimit;
-    private float rotateVelocity;
-    private float inertionMultiplier;
+    [SerializeField] private float force = 0.05f;
+    [SerializeField] private float speedLimit = 0.05f;
+    [SerializeField] private float rotateVelocity = 1f;
+    [SerializeField] private float inertionMultiplier = 1f;
+    private AudioSource ForceSound;
     private Vector3 _inertion;
-    [HideInInspector] public bool controlMode;
-    float speed;
+    private float speed;
 
-    private void Start()
+    [HideInInspector] public bool Invulnerability;
+
+    [HideInInspector] public bool ControlMode;
+
+    private void Awake()
     {
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        force = playerStats.GiveForce();
-        speedLimit = playerStats.GiveSpeedLimit();
-        rotateVelocity = playerStats.GiveRotateVelocity();
-        inertionMultiplier = playerStats.GiveInertionMultiplier();
+        ForceSound = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
     {
-        if (controlMode)
+
+        if (ControlMode)
         {
 
             if (Input.GetAxis("Vertical") > 0 || Input.GetMouseButton(1))
             {
+                PlaySound();
                 speed = force * 1;
                 _inertion += transform.up * speed * Time.fixedDeltaTime;
                 _inertion = Vector3.ClampMagnitude(_inertion, speedLimit);
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetAxis("Vertical") > 0)
             {
+                PlaySound();
                 speed = force * 1;
                 _inertion += transform.up * speed * Time.fixedDeltaTime;
                 _inertion = Vector3.ClampMagnitude(_inertion, speedLimit);
@@ -63,4 +65,16 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(_inertion, Space.World);
     }
+
+    private void PlaySound()
+    {
+        if (!ForceSound.isPlaying)
+            ForceSound.Play();
+    }
+
+    public void ToStartPosition()
+    {
+        transform.position = new Vector3(0, 0, 0);
+    }
+
 }

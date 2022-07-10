@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class UfoShot : MonoBehaviour
 {
-    [Header("Количество выстрелов в секунду")]
-    [SerializeField] private float bulletReload = 1f;
-    [Space]
     [Header("Пуля")]
     [SerializeField] private GameObject Bullet;
     [SerializeField] private Transform playerTransform;
@@ -17,6 +14,8 @@ public class UfoShot : MonoBehaviour
 
     private bool canShot = true;
     private Vector3 direction;
+
+    private float bulletReload = 1f;
 
     private void Update()
     {
@@ -35,7 +34,8 @@ public class UfoShot : MonoBehaviour
     private IEnumerator shotReload()
     {
         canShot = false;
-        yield return new WaitForSeconds(1 / bulletReload);
+        bulletReload = Random.Range(2, 5);
+        yield return new WaitForSeconds(bulletReload);
         canShot = true;
     }
 

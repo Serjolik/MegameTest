@@ -101,6 +101,7 @@ MonoBehaviour:
   damageDealt: 1
   speed: 1
   asteroidType: Medium
+  ExplousionSound: {fileID: 8300000, guid: 2c047e8464c66084aa5fd658a4c5f029, type: 3}
 --- !u!50 &4650345960535885928
 Rigidbody2D:
   serializedVersion: 4

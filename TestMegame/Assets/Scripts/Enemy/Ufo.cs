@@ -2,36 +2,36 @@ using UnityEngine;
 
 public class Ufo : MonoBehaviour
 {
-    private GameController gameController;
-    private PlayerStats playerStats;
+    [SerializeField] private GameObject PlayerShip;
+    [SerializeField] private GameController gameController;
 
+    [SerializeField] private float speed = 1;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private float spawnDistanceToPlayer = 5;
+
+    private PlayerStats playerStats;
     private Transform ufoTransform;
     private Vector3 vectorMovement;
-
-    [SerializeField] private Transform playerTransform;
+    private Transform playerTransform;
     private Vector3 playerPosition;
-
-    private float speed;
-    private int damage;
 
     private int max_x;
     private int max_y;
 
-    private float spawnDistanceToPlayer;
-
-    private void Start()
+    private void Awake()
     {
-        gameObject.SetActive(false);
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
-        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        ufoTransform = gameObject.transform;
+        playerStats = PlayerShip.GetComponentInParent<PlayerStats>();
+        playerTransform = PlayerShip.GetComponent<Transform>();
 
+        gameObject.SetActive(false);
+        ufoTransform = gameObject.transform;
         var direction = Random.Range(0, 1 + 1);
         if (direction == 0)
         {
             direction = -1;
         }
         vectorMovement = new Vector3(direction, 0, 0);
+        SetDistanceToPlayer(spawnDistanceToPlayer);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -59,16 +59,6 @@ public class Ufo : MonoBehaviour
     {
         ufoTransform.position = SetPosition();
         gameObject.SetActive(true);
-    }
-
-    public void SetSpeed(float speed)
-    {
-        this.speed = speed;
-    }
-
-    public void SetDamage(int damage)
-    {
-        this.damage = damage;
     }
 
     public void SetPlayerPosition()

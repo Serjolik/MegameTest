@@ -6,23 +6,27 @@ public class AsteroidManager : MonoBehaviour
     [SerializeField] private Transform playerTransform;
     private Asteroid AsteroidScript;
 
-    private int numberDivision = 2;
-    private float spawnRate;
-    private int asteroidsAmount;
-    private int damageDealt;
-    private float speed;
+    [SerializeField] private int numberDivision = 2;
+    [SerializeField] private float spawnRate = 2;
+    [SerializeField] private int asteroidsAmount = 2;
+    [SerializeField] private int damageDealt = 1;
+    [SerializeField] private float speed = 1;
+    [SerializeField] private float spawnDistanceToPlayer = 5;
+
     private Vector3 playerPosition;
-    private float spawnDistanceToPlayer;
     private Vector3 parentPosition;
     private Vector3 parentMovement;
 
     private float max_x;
     private float max_y;
 
+    private float newAsteroidsSpeedModify;
+
     private bool isPositiveSpawnAngle;
 
     public void StageSpawn()
     {
+        SetDistanceToPlayer(spawnDistanceToPlayer);
         StartCoroutine(TimerToSpawn());
     }
 
@@ -47,6 +51,7 @@ public class AsteroidManager : MonoBehaviour
         this.parentMovement = parentMovement;
 
         SetParentPosition(ParentPosition);
+        newAsteroidsSpeedModify = Random.Range(0.5f, 2f);
         for (int i = 0; i < numberDivision; i++)
         {
             AsteroidInstantiate(asteroidType);
@@ -97,36 +102,6 @@ public class AsteroidManager : MonoBehaviour
         return newPosition;
     }
 
-    public void SetSpawnRate(int spawnRate)
-    {
-        this.spawnRate = spawnRate;
-    }
-
-    public void SetAsteroidsAmount(int asteroidsAmount)
-    {
-        this.asteroidsAmount = asteroidsAmount;
-    }
-
-    public void SetDamage(int damageDealt)
-    {
-        this.damageDealt = damageDealt;
-    }
-
-    public void setSpeed(float speed)
-    {
-        this.speed = speed;
-    }
-
-    public void SetPlayerPosition()
-    {
-        playerPosition = playerTransform.position;
-    }
-
-    public void SetParentPosition(Vector3 position)
-    {
-        this.parentPosition = position;
-    }
-
     public void SetDistanceToPlayer(float spawnDistanceToPlayer)
     {
         if (spawnDistanceToPlayer >= Screen.width)
@@ -146,12 +121,26 @@ public class AsteroidManager : MonoBehaviour
         if (asteroidType != "BigAsteroid")
         {
             AngleSwither();
-            AsteroidScript.SetVectorMovement(parentMovement, isPositiveSpawnAngle);
+            AsteroidScript.SetVectorMovement(parentMovement, isPositiveSpawnAngle, newAsteroidsSpeedModify);
         }
     }
 
     private void AngleSwither()
     {
         isPositiveSpawnAngle = !isPositiveSpawnAngle;
+    }
+    private void SetParentPosition(Vector3 parentPosition)
+    {
+        this.parentPosition = parentPosition;
+    }
+
+    public void SetPlayerPosition()
+    {
+        playerPosition = playerTransform.position;
+    }
+
+    public void SetAsteroidsAmount(int asteroidsAmount)
+    {
+        this.asteroidsAmount = asteroidsAmount;
     }
 }

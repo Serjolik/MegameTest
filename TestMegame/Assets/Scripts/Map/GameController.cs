@@ -8,9 +8,9 @@ public class GameController : MonoBehaviour
     [SerializeField] private AsteroidManager AsteroidManager;
     [SerializeField] private Ufo Ufo;
     [SerializeField] private GameObject Menu;
+    [SerializeField] private UIController UIController;
     [Space]
     [Header("Variables")]
-    [SerializeField] private int asteroidSpawnReloading = 2;
     [SerializeField] private int startAsteroidAmount = 1;
 
     [SerializeField] private int pointsForBigAsteroid = 20;
@@ -18,23 +18,8 @@ public class GameController : MonoBehaviour
     [SerializeField] private int pointsForSmallAsteroid = 100;
     [SerializeField] private int pointsForUFO = 200;
 
-    [SerializeField] private int ObjectsBumpDamage = 1;
-    [SerializeField] private float asteroidSpeed = 1f;
-    [SerializeField] private float ufoSpeed = 1f;
-
-    [Header("На какой дистанции от игрока могут появлятся астероиды")]
-    [SerializeField] private float distanceToPlayer = 5f;
-
     private Transform playerTransform;
     private Vector3 playerPosition;
-
-    private GameObject UICanvas;
-    private TextMeshProUGUI[] TextPanels;
-    private TextMeshProUGUI PointsPanelText;
-    private TextMeshProUGUI HealthPanelText;
-
-    private float screenSizeHeight;
-    private float screenSizeWidth;
 
     private int currentAmountOfSmallAsteroids;
 
@@ -44,17 +29,11 @@ public class GameController : MonoBehaviour
 
     [HideInInspector] public bool isAlive;
     private bool isUfoAlive;
-    private bool isPositiveSpawnAngle;
 
     [HideInInspector] public bool inMenu;
 
     private void Awake()
     {
-        UICanvas = GameObject.FindGameObjectWithTag("UI");
-
-        TextPanels = UICanvas.GetComponentsInChildren<TextMeshProUGUI>();
-        PointsPanelText = TextPanels[0];
-        HealthPanelText = TextPanels[1];
 
         playerTransform = gameObject.GetComponentInChildren<Transform>();
         playerPosition = playerTransform.position;
@@ -68,7 +47,6 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         SetAsteroidParam();
-        SetUfoParam();
         AsteroidManager.StageSpawn();
         UfoAddedToScene();
 
@@ -98,7 +76,7 @@ public class GameController : MonoBehaviour
     private void PointsChange(int points)
     {
         this.points += points;
-        PointsPanelText.text = "Points: " + this.points;
+        UIController.PointsChange(points);
     }
 
     private void NewStage()
@@ -209,22 +187,6 @@ public class GameController : MonoBehaviour
 
     private void SetAsteroidParam()
     {
-        AsteroidManager.SetSpawnRate(asteroidSpawnReloading);
         AsteroidManager.SetAsteroidsAmount(startAsteroidAmount);
-        AsteroidManager.SetDamage(ObjectsBumpDamage);
-        AsteroidManager.setSpeed(asteroidSpeed);
-        AsteroidManager.SetDistanceToPlayer(distanceToPlayer);
-    }
-
-    private void SetUfoParam()
-    {
-        Ufo.SetSpeed(ufoSpeed);
-        Ufo.SetDamage(ObjectsBumpDamage);
-        Ufo.SetDistanceToPlayer(distanceToPlayer);
-    }
-
-    public void HealthChange(int hp)
-    {
-        HealthPanelText.text  = "Health: " + hp;
     }
 }
