@@ -686,7 +686,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a87bf4241abab4e83e4715395385a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletReload: 0.5
   Bullet: {fileID: 8794689789023183903, guid: 9f481a6359fae4040a418a3a0a1abebc, type: 3}
   playerTransform: {fileID: 1889359984}
   ufoTransform: {fileID: 682614139}
@@ -2001,6 +2000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5cda6c798da0e3478c7df21b980752c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerMovement: {fileID: 1889359985}
   hp: 2
   GameController: {fileID: 1675592377}
   UIController: {fileID: 1675424462}
@@ -3070,6 +3070,7 @@ MonoBehaviour:
   speedLimit: 0.05
   rotateVelocity: 1
   inertionMultiplier: 1
+  Invulnerability: 0
   ControlMode: 0
 --- !u!212 &1889359986
 SpriteRenderer:
